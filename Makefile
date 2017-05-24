@@ -6,7 +6,7 @@
 #    By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/16 07:02:04 by gguiulfo          #+#    #+#              #
-#    Updated: 2017/05/18 15:33:50 by gguiulfo         ###   ########.fr        #
+#    Updated: 2017/05/23 02:21:52 by gguiulfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LDFLAGS += -L libft/ -lft
 
 LIBFT	:= libft/libft.a
 
-FILES	:= fl_main
+FILES	:= fl_main fl_algo
 
 OBJDIR	:= obj/
 SRCDIR	:= src/
