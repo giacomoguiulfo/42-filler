@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/24 23:47:05 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/25 19:52:53 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ int		main(void)
 		for (int i = 0; i < env.p_row; i++)
 			ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env.piece[i]);
 		/* -----------*/
+		// TODO: filler
+		// TODO: free piece
+		ft_printf("%d %d\n", 4, 5);
 		ft_strdel(&line);
 	}
 	return (0);
