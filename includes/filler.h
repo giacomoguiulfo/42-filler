@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/24 23:39:54 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 00:38:12 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 # define FILLER_H
 
 # include <libft.h>
+# include <stdbool.h>
 
 # define HEATMAX 100
 
 typedef struct 	s_env
 {
-	int			**heat;
+	int			**heatmap;
 	int			m_rows;
 	int			m_cols;
-	int			p_row;
-	int			p_col;
-	int			in_x;
-	int			in_y;
+	int			p_rows;
+	int			p_cols;
+	int			out_x;
+	int			out_y;
+	int			heatscore;
 	char		player;
 	char		rival;
 	char		**map;
@@ -38,7 +40,7 @@ void			filler(t_env *env);
 ** Heat Map Functions
 */
 
-void			fl_make_heatmap(t_env *env);
-void			fl_update_heatmap(t_env *env);
+void			make_heatmap(t_env *env);
+void			update_heatmap(t_env *env);
 
 #endif

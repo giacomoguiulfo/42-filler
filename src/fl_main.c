@@ -6,58 +6,102 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/25 19:52:53 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 00:52:37 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
-// static void	fl_answer(t_env env)
-// {
-// 	env.in_x = 5;
-// 	env.in_y = 7;
-// 	// Testing
-// 	// ft_putstr_fd(ft_itoa(env.in_x), 2);
-// 	// ft_putchar_fd(' ', 2);
-// 	// ft_putstr_fd(ft_itoa(env.in_y), 2);
-// 	// ft_putchar_fd('\n', 2);
-// 	// Real -----------------------
-// 	ft_putnbr(env.in_x);
-// 	// ft_putstr_fd(ft_itoa(env.in_x), 1);
-// 	ft_putchar_fd(' ', 1);
-//
-// 	// ft_putstr_fd(ft_itoa(env.in_y), 1);
-// 	ft_putchar_fd('\n', 1);
-// }
-//
-static void	fl_read_piece(t_env *env)
+
+#define FILLER_BUFF 4096
+#include <stdio.h> // Delete
+char	*read_line(void)
+{
+	int		c;
+	int		bufsize;
+	int		position;
+	char	*buffer;
+
+	position = 0;
+	bufsize = FILLER_BUFF;
+	buffer = (char *)malloc(sizeof(char) * bufsize);
+	while (1)
+	{
+		if ((c = ft_getchar()) == EOF)
+			free(buffer);
+		if (c == EOF)
+			return (NULL);
+		if (c == '\n')
+			buffer[position] = '\0';
+		if (c == '\n')
+			return (buffer);
+		else
+			buffer[position++] = c;
+		if (position >= bufsize)
+			buffer = ft_realloc(buffer, bufsize, bufsize + FILLER_BUFF);
+		if (position >= bufsize)
+			bufsize += FILLER_BUFF;
+	}
+}
+
+void		debug_print_map(t_env *env)
+{
+	ft_dprintf(2, "%{bgreen}Map:%{eoc}\n");
+	for (int i = 0; i < env->m_rows; i++)
+		ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env->map[i]);
+}
+
+void		debug_print_heatmap(t_env *env)
+{
+	ft_dprintf(2, "%{bgreen}Heat Map:%{eoc}\n");
+	ft_dprintf(2, "  %4c", ' ');
+	for (int i = 0; i < env->m_cols; i++)
+		ft_dprintf(2, "%{cyan}%6d%{eoc}", i);
+	ft_putchar_fd('\n', 2);
+	for (int i = 0; i < env->m_rows; i++)
+	{
+		ft_dprintf(2, "%{cyan}%4d: %{eoc}", i);
+		for (int j = 0; j < env->m_cols; j++)
+			ft_dprintf(2, "%{bgreen}%6d%{eoc}", env->heatmap[i][j]);
+		ft_dprintf(2, "\n");
+	}
+}
+
+void		debug_print_piece(t_env *env)
+{
+	ft_dprintf(2, "%{bgreen}Piece:%{eoc}\n");
+	for (int i = 0; i < env->p_rows; i++)
+		ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env->piece[i]);
+}
+
+static void	read_piece(t_env *env)
 {
 	char	**data;
 	char	*line;
 	int		i;
 
 	i = 0;
-	get_next_line(0, &line);
+	line = read_line();
 	data = ft_strsplit(line, ' ');
-	env->p_row = ft_atoi(data[1]);
-	env->p_col = ft_atoi(data[2]);
+	env->p_rows = ft_atoi(data[1]);
+	env->p_cols = ft_atoi(data[2]);
 	ft_free_map(data);
 	ft_strdel(&line);
-	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_row + 1));
-	while (i < env->p_row)
+	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_rows + 1));
+	while (i < env->p_rows)
 	{
-		get_next_line(0, &line);
+		line = read_line();
 		env->piece[i] = ft_strdup(line);
 		ft_strdel(&line);
 		i++;
 	}
 }
 
-static void	fl_set_players(t_env *env)
+static void	set_players(t_env *env)
 {
 	char *line;
 
-	get_next_line(0, &line);
+	line = read_line();
 	if (line[10] == '1')
 	{
 		env->player = 'O';
@@ -71,25 +115,27 @@ static void	fl_set_players(t_env *env)
 	ft_strdel(&line);
 }
 
-static void	fl_make_map(t_env *env)
+static void	make_map(t_env *env)
 {
-	char	**data;
 	char	*line;
 	int		i;
 
 	i = 0;
-	get_next_line(0, &line);
-	data = ft_strsplit(line, ' ');
-	env->m_rows = ft_atoi(data[1]);
-	env->m_cols = ft_atoi(data[2]);
-	env->map = (char **)ft_memalloc(sizeof(char *) * (env->m_rows + 1));
-	while (i < env->m_rows)
-		env->map[i++] = (char *)ft_memalloc(sizeof(char) * (env->m_cols + 1));
+	line = read_line();
+	while (!ISDIGIT(line[i]))
+		i++;
+	env->m_rows = ft_atoi(line + i);
+	while (ISDIGIT(line[i]))
+		i++;
+	env->m_cols = ft_atoi(line + i);
 	ft_strdel(&line);
-	ft_free_map(data);
+	env->map = (char **)ft_memalloc(sizeof(char *) * (env->m_rows + 1));
+	i = -1;
+	while (++i < env->m_rows)
+		env->map[i] = (char *)ft_memalloc(sizeof(char) * (env->m_cols + 1));
 }
 
-static void	fl_read_map(t_env *env)
+static void	read_map(t_env *env)
 {
 	char	*line;
 	int		i;
@@ -97,49 +143,45 @@ static void	fl_read_map(t_env *env)
 	i = 0;
 	while (i < env->m_rows)
 	{
-		get_next_line(0, &line);
+		line = read_line();
 		ft_memcpy(env->map[i], &line[4], env->m_cols);
 		ft_strdel(&line);
 		i++;
 	}
 }
 
+static inline void skip_plateau(char **line)
+{
+	if (!ft_strncmp(*line , "Plateau", 7))
+	{
+		ft_strdel(line);
+		*line = read_line();
+	}
+}
+
 int		main(void)
 {
-	t_env env;
-	char *line;
+	t_env	env;
+	char	*line;
 
-	fl_set_players(&env);
-	fl_make_map(&env);
-	fl_make_heatmap(&env);
-	while (get_next_line(0, &line) > 0)
+	ft_bzero(&env, sizeof(t_env));
+	set_players(&env);
+	make_map(&env);
+	make_heatmap(&env);
+	while ((line = read_line()) != NULL)
 	{
-		fl_read_map(&env);
-		/* Print Map */
-		ft_dprintf(2, "%{bgreen}Map:%{eoc}\n");
-		for (int i = 0; i < env.m_rows; i++)
-			ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env.map[i]);
-		/* --------- */
-		fl_update_heatmap(&env);
-		/* Print HeatMap */
-		ft_dprintf(2, "%{bgreen}Heat Map:%{eoc}\n");
-		for (int i = 0; i < env.m_rows; i++)
-		{
-			for (int j = 0; j < env.m_cols; j++)
-				ft_dprintf(2, "%{bgreen}%4d%{eoc}", env.heat[i][j]);
-			ft_dprintf(2, "\n");
-		}
-		/* ------------- */
-		fl_read_piece(&env);
-		/* Print Piece */
-		ft_dprintf(2, "%{bgreen}Piece:%{eoc}\n");
-		for (int i = 0; i < env.p_row; i++)
-			ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env.piece[i]);
-		/* -----------*/
-		// TODO: filler
-		// TODO: free piece
-		ft_printf("%d %d\n", 4, 5);
+		skip_plateau(&line);
 		ft_strdel(&line);
+		read_map(&env);
+		read_piece(&env);
+		debug_print_map(&env);
+		update_heatmap(&env);
+		debug_print_heatmap(&env);
+		debug_print_piece(&env);
+		filler(&env);
+		ft_free_map(env.piece);
 	}
+	ft_free_map(env.map);
+	ft_free_rows((void **)env.heatmap, env.m_rows);
 	return (0);
 }
