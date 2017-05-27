@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 00:38:12 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 01:45:38 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ typedef struct 	s_env
 }				t_env;
 
 void			filler(t_env *env);
-
-/*
-** Heat Map Functions
-*/
-
+void			process_piece(t_env *env);
 void			make_heatmap(t_env *env);
 void			update_heatmap(t_env *env);
 
