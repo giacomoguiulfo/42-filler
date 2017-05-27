@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 03:19:36 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 05:04:27 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void		debug_print_heatmap(t_env *env)
 void		debug_print_piece(t_env *env)
 {
 	ft_dprintf(2, "%{bgreen}Piece:%{eoc}\n");
-	for (int i = 0; i < env->p_rows; i++)
-		ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env->piece[i]);
+	for (int i = 0; i < env->pbox_rows; i++)
+		ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env->piecebox[i]);
 }
 
 static void	set_players(t_env *env)
@@ -101,17 +101,17 @@ static void	read_piece(t_env *env)
 	line = read_line();
 	while (!ISDIGIT(line[i]))
 		i++;
-	env->p_rows = ft_atoi(line + i);
+	env->pbox_rows = ft_atoi(line + i);
 	while (ISDIGIT(line[i]))
 		i++;
-	env->p_cols = ft_atoi(line + i);
+	env->pbox_cols = ft_atoi(line + i);
 	ft_strdel(&line);
-	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_rows + 1));
+	env->piecebox = (char **)ft_memalloc(sizeof(char *) * (env->pbox_rows + 1));
 	i = -1;
-	while (++i < env->p_rows)
+	while (++i < env->pbox_rows)
 	{
 		line = read_line();
-		env->piece[i] = ft_strdup(line);
+		env->piecebox[i] = ft_strdup(line);
 		ft_strdel(&line);
 	}
 }
@@ -174,15 +174,19 @@ int		main(void)
 		ft_strdel(&line);
 		read_map(&env);
 		read_piece(&env);
-		debug_print_piece(&env);
+		// debug_print_piece(&env);
 		process_piece(&env);
-		debug_print_piece(&env);
-		ft_dprintf(2, "p_rows: %d, p_cols: %d\n", env.p_rows, env.p_cols);
-		// debug_print_map(&env);
+		for (int i = 0; i < env.p_rows; i++)
+			ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env.piece[i]);
+		// debug_print_piece(&env);
+		// ft_dprintf(2, "pbox_rows: %d, pbox_cols: %d\n", env.pbox_rows, env.pbox_cols);
+		debug_print_map(&env);
+
 		update_heatmap(&env);
+	ft_dprintf(2, "segfault?\n");
 		// debug_print_heatmap(&env);
 		filler(&env);
-		ft_free_map(env.piece);
+		// ft_free_map(env.piecebox);
 	}
 	ft_free_map(env.map);
 	ft_free_rows((void **)env.heatmap, env.m_rows);

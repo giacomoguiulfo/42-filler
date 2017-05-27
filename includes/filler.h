@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 01:45:38 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 04:34:52 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ typedef struct 	s_env
 	int			m_cols;
 	int			p_rows;
 	int			p_cols;
+	int			pbox_rows;
+	int			pbox_cols;
+	int			top_shift;
+	int			left_shift;
 	int			out_x;
 	int			out_y;
 	int			heatscore;
@@ -32,6 +36,7 @@ typedef struct 	s_env
 	char		rival;
 	char		**map;
 	char		**piece;
+	char		**piecebox;
 }				t_env;
 
 void			filler(t_env *env);

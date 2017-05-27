@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 01:30:03 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 05:04:02 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	filler(t_env *env)
 		{
 			if (is_safe(env, j, i))
 			{
-				// ft_dprintf(2, "%{bgreen}Is safe in y: %d and x: %d%{eoc}\n", i, j);
+				ft_dprintf(2, "%{bgreen}Is safe in y: %d and x: %d%{eoc}\n", i, j);
 				check_priority(env, j, i);
 			}
 		}
@@ -101,4 +101,5 @@ void	filler(t_env *env)
 	// ft_printf("%d %d\n", env->out_y, env->out_x);
 	env->heatscore = 0;
 	// putpiece(env);
+		ft_dprintf(2, "segfault?\n");
 }
