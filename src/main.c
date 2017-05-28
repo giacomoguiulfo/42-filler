@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 05:04:27 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/28 07:03:42 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,17 +176,16 @@ int		main(void)
 		read_piece(&env);
 		// debug_print_piece(&env);
 		process_piece(&env);
-		for (int i = 0; i < env.p_rows; i++)
-			ft_dprintf(2, "%{bgreen}%s%{eoc}\n", env.piece[i]);
 		// debug_print_piece(&env);
-		// ft_dprintf(2, "pbox_rows: %d, pbox_cols: %d\n", env.pbox_rows, env.pbox_cols);
-		debug_print_map(&env);
-
+		// debug_print_map(&env);
 		update_heatmap(&env);
-	ft_dprintf(2, "segfault?\n");
-		// debug_print_heatmap(&env);
+		// if (env.m_rows < 20)
+			// small_filler(&env);
+		debug_print_heatmap(&env);
 		filler(&env);
-		// ft_free_map(env.piecebox);
+		// usleep(1000000);
+		ft_free_map(env.piece);
+		ft_free_map(env.piecebox);
 	}
 	ft_free_map(env.map);
 	ft_free_rows((void **)env.heatmap, env.m_rows);

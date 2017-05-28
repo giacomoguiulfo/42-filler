@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 05:04:02 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/28 07:07:49 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,32 @@ int		get_heatscore(t_env *env, int x, int y)
 	return (score);
 }
 
-void	check_priority(t_env *env, int x, int y)
+void	consider_position(t_env *env, int x, int y)
 {
+	// static	int tactic;
 	int		new_score;
 
 	new_score = get_heatscore(env, x, y);
-	if (new_score >= env->heatscore)
-	{
-		env->heatscore = new_score;
-		env->out_x = x;
-		env->out_y = y;
-	}
+	// if (EVEN(tactic))
+	// {
+	// 	if (new_score > env->heatscore)
+	// 	{
+	// 		env->heatscore = new_score;
+	// 		env->out_x = x - env->left_shift;
+	// 		env->out_y = y - env->top_shift;
+	// 		++tactic;
+	// 	}
+	// }
+	// else
+	// {
+		if (new_score >= env->heatscore)
+		{
+			env->heatscore = new_score;
+			env->out_x = x - env->left_shift;
+			env->out_y = y - env->top_shift;
+			// ++tactic;
+		}
+	// }
 }
 
 bool	is_safe(t_env *env, int x, int y)
@@ -81,25 +96,17 @@ void	filler(t_env *env)
 	int j;
 
 	i = -1;
-
 	while (++i + (env->p_rows - 1) < env->m_rows)
 	{
 		j = -1;
 		while (++j + (env->p_cols - 1) < env->m_cols)
 		{
 			if (is_safe(env, j, i))
-			{
-				ft_dprintf(2, "%{bgreen}Is safe in y: %d and x: %d%{eoc}\n", i, j);
-				check_priority(env, j, i);
-			}
+				consider_position(env, j, i);
 		}
 	}
-	// ft_dprintf(2, "env->out_y: %d, env->out_x: %d\n", env->out_y, env->out_x);
-	// ft_dprintf(STDOUT_FILENO, "%d %d\n", env->out_y, env->out_x);
-	// ft_dprintf(STDOUT_FILENO, "%d %d\n", env->out_y, env->out_x);
-	ft_dprintf(STDOUT_FILENO, "%d %d\n", env->out_y, env->out_x);
-	// ft_printf("%d %d\n", env->out_y, env->out_x);
+	ft_printf("%d %d\n", env->out_y, env->out_x);
 	env->heatscore = 0;
-	// putpiece(env);
-		ft_dprintf(2, "segfault?\n");
+	env->out_y = 0;
+	env->out_x = 0;
 }

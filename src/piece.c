@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 01:31:48 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 04:46:27 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/27 06:48:03 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,14 @@ static int	get_right_end(t_env *env)
 	return (right_end);
 }
 
-void		trim_piece(t_env *env)
+void	process_piece(t_env *env)
 {
-	int y;
+	int	y;
 
+	env->left_shift = get_left_shift(env);
+	env->top_shift = get_top_shift(env);
+	env->p_cols = env->pbox_cols - env->left_shift - get_right_end(env);
+	env->p_rows = env->pbox_rows - env->top_shift - get_bottom_end(env);
 	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_rows + 1));
 	y = -1;
 	while (++y < env->p_rows)
@@ -107,16 +111,4 @@ void		trim_piece(t_env *env)
 		env->piece[y] =
 		ft_strndup(env->piecebox[y + env->top_shift] + env->left_shift, env->p_cols);
 	}
-}
-
-void	process_piece(t_env *env)
-{
-	ft_dprintf(2, "segfault here?\n");
-	env->left_shift = get_left_shift(env);
-	env->top_shift = get_top_shift(env);
-	env->p_cols = env->pbox_cols - env->left_shift - get_right_end(env);
-	env->p_rows = env->pbox_rows - env->top_shift - get_bottom_end(env);
-	ft_dprintf(2, "env->p_cols: %d, env->p_rows: %d\n", env->p_cols, env->p_rows);
-	trim_piece(env);
-	ft_dprintf(2, "segfault here?\n");
 }

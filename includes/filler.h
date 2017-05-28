@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/27 04:34:52 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/05/28 05:36:13 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ typedef struct 	s_env
 	int			out_x;
 	int			out_y;
 	int			heatscore;
+	//
+	int			player_pos_x;
+	int			player_pos_y;
+	//
 	char		player;
 	char		rival;
 	char		**map;
@@ -40,8 +44,11 @@ typedef struct 	s_env
 }				t_env;
 
 void			filler(t_env *env);
+bool			is_safe(t_env *env, int x, int y);
 void			process_piece(t_env *env);
 void			make_heatmap(t_env *env);
 void			update_heatmap(t_env *env);
+void			fill_heatmap(t_env *env, int y, int x, int heatmax);
+void			small_filler(t_env *env);
 
 #endif
