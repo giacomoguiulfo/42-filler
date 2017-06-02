@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/28 07:03:42 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/02 00:35:17 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 #define FILLER_BUFF 4096
-#include <stdio.h> // Delete
+#include <stdio.h> // Delete or not
 char	*read_line(void)
 {
 	int		c;
@@ -180,12 +180,14 @@ int		main(void)
 		// debug_print_map(&env);
 		update_heatmap(&env);
 		// if (env.m_rows < 20)
-			// small_filler(&env);
-		debug_print_heatmap(&env);
+			small_filler(&env);
+		// debug_print_heatmap(&env);
 		filler(&env);
-		// usleep(1000000);
-		ft_free_map(env.piece);
-		ft_free_map(env.piecebox);
+		// usleep(100000);
+		// sleep(1);
+		// ft_free_map(env.piece);
+		// ft_free_map(env.piecebox);
+		// sleep(1);
 	}
 	ft_free_map(env.map);
 	ft_free_rows((void **)env.heatmap, env.m_rows);

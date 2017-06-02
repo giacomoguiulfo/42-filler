@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 05:18:05 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/28 07:03:08 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/02 00:30:08 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	fill_top_left(t_env *env)
 		x = -1;
 		while (++x < env->m_cols / 2)
 		{
-			fill_heatmap(env, y, x, HEATMAX + 5);
+			fill_heatmap(env, y, x, HEATMAX - 1);
 		}
 	}
 }
