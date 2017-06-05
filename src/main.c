@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/02 00:35:17 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/05 10:44:39 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int		main(void)
 		// debug_print_piece(&env);
 		// debug_print_map(&env);
 		update_heatmap(&env);
-		// if (env.m_rows < 20)
+		if (env.m_rows < 20)
 			small_filler(&env);
 		// debug_print_heatmap(&env);
 		filler(&env);

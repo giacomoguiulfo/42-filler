@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/05/28 05:36:13 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/04 00:47:38 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct 	s_env
 	int			player_pos_x;
 	int			player_pos_y;
 	//
+	int			special:1;
 	char		player;
 	char		rival;
 	char		**map;

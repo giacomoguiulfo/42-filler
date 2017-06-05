@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/01 20:53:47 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/04 00:51:51 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ bool	is_safe(t_env *env, int x, int y)
 	}
 	return ((flag == 1) ? true : false);
 }
+
+
 
 void	filler(t_env *env)
 {
