@@ -6,7 +6,7 @@
 #    By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/16 07:02:04 by gguiulfo          #+#    #+#              #
-#    Updated: 2017/05/28 05:31:55 by gguiulfo         ###   ########.fr        #
+#    Updated: 2017/06/05 15:21:46 by gguiulfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LDFLAGS += -L libft/ -lft
 
 LIBFT	:= libft/libft.a
 
-FILES	:= main algo heatmap piece small_filler
+FILES	:= filler heatmap main map small_filler debug_filler
 
 OBJDIR	:= obj/
 SRCDIR	:= src/

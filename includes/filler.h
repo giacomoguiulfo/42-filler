@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/04 00:47:38 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/05 15:32:05 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define FILLER_H
 
 # include <libft.h>
+# include <stdio.h>
 # include <stdbool.h>
 
 # define HEATMAX 100
+# define FILLER_BUFF 4096
 
 typedef struct 	s_env
 {
@@ -25,8 +27,6 @@ typedef struct 	s_env
 	int			m_cols;
 	int			p_rows;
 	int			p_cols;
-	int			pbox_rows;
-	int			pbox_cols;
 	int			top_shift;
 	int			left_shift;
 	int			out_x;
@@ -41,15 +41,42 @@ typedef struct 	s_env
 	char		rival;
 	char		**map;
 	char		**piece;
-	char		**piecebox;
 }				t_env;
 
+/*
+** Algorithms
+*/
+
 void			filler(t_env *env);
-bool			is_safe(t_env *env, int x, int y);
-void			process_piece(t_env *env);
+void			small_filler(t_env *env);
+
+/*
+** Heatmap
+*/
+
 void			make_heatmap(t_env *env);
 void			update_heatmap(t_env *env);
 void			fill_heatmap(t_env *env, int y, int x, int heatmax);
-void			small_filler(t_env *env);
+
+/*
+** Map Functions
+*/
+
+void			make_map(t_env *env);
+void			read_map(t_env *env);
+
+/*
+** Utils
+*/
+
+char			*read_line(void);
+
+/*
+** Debug Functions
+*/
+
+void			debug_print_map(t_env *env);
+void			debug_print_piece(t_env *env);
+void			debug_print_heatmap(t_env *env);
 
 #endif
