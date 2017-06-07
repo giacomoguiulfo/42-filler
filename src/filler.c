@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 15:30:35 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/07 09:31:31 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_heatscore(t_env *env, int x, int y)
 	while (++i < env->p_rows)
 	{
 		j = -1;
-		while (++j < env->p_rows)
+		while (++j < env->p_cols)
 		{
 			if (env->piece[i][j] == '*')
 				score += env->heatmap[y + i][x + j];
@@ -56,19 +56,15 @@ static bool	is_safe(t_env *env, int x, int y)
 	while (++i < env->p_rows)
 	{
 		j = -1;
-		while (++j < env->p_rows)
+		while (++j < env->p_cols)
 		{
 			if (env->piece[i][j] == '*')
 			{
 				if (i + y >= env->m_rows || j + x >= env->m_cols
-													|| i + y < 0 || j + x < 0)
+					|| i + y < 0 || j + x < 0 || flag > 1)
 					return (false);
 				if (TOUPPER(env->map[i + y][j + x]) == env->player)
-				{
 					flag++;
-					if (flag > 1)
-						return (false);
-				}
 				else if (TOUPPER(env->map[i + y][x + j]) == env->rival)
 					return (false);
 			}
@@ -76,8 +72,6 @@ static bool	is_safe(t_env *env, int x, int y)
 	}
 	return ((flag == 1) ? true : false);
 }
-
-
 
 void		filler(t_env *env)
 {
@@ -87,7 +81,7 @@ void		filler(t_env *env)
 	i = -env->p_rows - 1;
 	while (++i < env->m_rows)
 	{
-		j = -env->p_rows - 1;
+		j = -env->p_cols - 1;
 		while (++j < env->m_cols)
 		{
 			if (is_safe(env, j, i))

@@ -6,7 +6,7 @@
 #    By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/16 07:02:04 by gguiulfo          #+#    #+#              #
-#    Updated: 2017/06/05 15:21:46 by gguiulfo         ###   ########.fr        #
+#    Updated: 2017/06/07 10:13:22 by gguiulfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LDFLAGS += -L libft/ -lft
 
 LIBFT	:= libft/libft.a
 
-FILES	:= filler heatmap main map small_filler debug_filler
+FILES	:= filler heatmap main map small_filler utils debug_filler
 
 OBJDIR	:= obj/
 SRCDIR	:= src/
@@ -40,7 +40,7 @@ obj:
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	@printf "\e[32mCompiling...(%d/%d)\e[0m\n" $(COUNTER) $(MAX)
+	@printf "\r\e[32mCompiling...(%d/%d)\e[0m" $(COUNTER) $(MAX)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 libft: $(LIBFT)
@@ -49,6 +49,7 @@ $(LIBFT):
 	@make -C libft
 
 $(NAME): $(OBJ)
+	@printf "\r\e[32mCompiling...(%d/%d)[DONE]\n\e[0m" $(MAX) $(MAX)
 	@$(CC) $(LDFLAGS) -o $@ $^
 	@printf "\e[32mCompiled Executable\e[0m\n"
 

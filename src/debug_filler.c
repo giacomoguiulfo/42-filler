@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 15:04:26 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 15:26:22 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/06 15:16:39 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		debug_print_heatmap(t_env *env)
 	while (++i < env->m_cols)
 		ft_dprintf(2, "%{cyan}%6d%{eoc}", i);
 	ft_putchar_fd('\n', 2);
-	i = -1
+	i = -1;
 	while (++i < env->m_rows)
 	{
 		ft_dprintf(2, "%{cyan}%4d: %{eoc}", i);

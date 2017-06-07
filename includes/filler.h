@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 15:32:05 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/07 10:03:36 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,18 @@
 # define HEATMAX 100
 # define FILLER_BUFF 4096
 
-typedef struct 	s_env
+typedef struct	s_env
 {
 	int			**heatmap;
 	int			m_rows;
 	int			m_cols;
 	int			p_rows;
 	int			p_cols;
-	int			top_shift;
-	int			left_shift;
 	int			out_x;
 	int			out_y;
 	int			heatscore;
-	//
 	int			player_pos_x;
 	int			player_pos_y;
-	//
 	int			special:1;
 	char		player;
 	char		rival;
@@ -70,6 +66,7 @@ void			read_map(t_env *env);
 */
 
 char			*read_line(void);
+void			get_player_pos(t_env *env);
 
 /*
 ** Debug Functions

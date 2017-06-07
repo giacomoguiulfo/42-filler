@@ -6,13 +6,13 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:36:58 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 15:35:01 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/07 09:32:35 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
-static void	read_piece(t_env *env)
+static void			read_piece(t_env *env)
 {
 	char	*line;
 	int		i;
@@ -24,7 +24,7 @@ static void	read_piece(t_env *env)
 	env->p_rows = ft_atoi(line + i);
 	while (ISDIGIT(line[i]))
 		i++;
-	env->p_rows = ft_atoi(line + i);
+	env->p_cols = ft_atoi(line + i);
 	ft_strdel(&line);
 	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_rows + 1));
 	i = -1;
@@ -36,16 +36,16 @@ static void	read_piece(t_env *env)
 	}
 }
 
-static inline void skip_plateau(char **line)
+static inline void	skip_plateau(char **line)
 {
-	if (!ft_strncmp(*line , "Plateau", 7))
+	if (!ft_strncmp(*line, "Plateau", 7))
 	{
 		ft_strdel(line);
 		*line = read_line();
 	}
 }
 
-static void	set_players(t_env *env)
+static void			set_players(t_env *env)
 {
 	char *line;
 
@@ -63,7 +63,7 @@ static void	set_players(t_env *env)
 	ft_strdel(&line);
 }
 
-int		main(void)
+int					main(void)
 {
 	t_env	env;
 	char	*line;
@@ -78,20 +78,11 @@ int		main(void)
 		ft_strdel(&line);
 		read_map(&env);
 		read_piece(&env);
-		// debug_print_piece(&env);
-		process_piece(&env);
-		// debug_print_piece(&env);
-		// debug_print_map(&env);
 		update_heatmap(&env);
-		if (env.m_rows < 20)
+		if (env.m_rows < 20 && !(env.special))
 			small_filler(&env);
-		// debug_print_heatmap(&env);
 		filler(&env);
-		// usleep(100000);
-		// sleep(1);
-		// ft_free_map(env.piece);
-		// ft_free_map(env.piece);
-		// sleep(1);
+		ft_free_map(env.piece);
 	}
 	ft_free_map(env.map);
 	ft_free_rows((void **)env.heatmap, env.m_rows);

@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 15:22:53 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 15:23:04 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/06 15:32:06 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,30 @@ char	*read_line(void)
 			buffer = ft_realloc(buffer, bufsize, bufsize + FILLER_BUFF);
 		if (position >= bufsize)
 			bufsize += FILLER_BUFF;
+	}
+}
+
+void	get_player_pos(t_env *env)
+{
+	static int	flag;
+	int			x;
+	int			y;
+
+	if (flag)
+		return ;
+	y = -1;
+	while (++y < env->m_rows)
+	{
+		x = -1;
+		while (++x < env->m_cols)
+		{
+			if (TOUPPER(env->map[y][x]) == env->player)
+			{
+				env->player_pos_x = x;
+				env->player_pos_y = y;
+				flag = 1;
+				return ;
+			}
+		}
 	}
 }

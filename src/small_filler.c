@@ -6,59 +6,59 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 05:18:05 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/05 10:32:18 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/06 15:31:25 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
-// static void	fill_bottom_right(t_env *env)
-// {
-// 	int	x;
-// 	int y;
-//
-// 	y = env->m_rows / 2;
-// 	while (++y < env->m_rows)
-// 	{
-// 		x = env->m_cols / 2;
-// 		while (++x < env->m_cols)
-// 		{
-// 			fill_heatmap(env, y, x, HEATMAX - 1);
-// 		}
-// 	}
-// }
-//
-// static void	fill_bottom_left(t_env *env)
-// {
-// 	int	x;
-// 	int y;
-//
-// 	y = env->m_rows / 2;
-// 	while (++y < env->m_rows)
-// 	{
-// 		x = -1;
-// 		while (++x < env->m_cols / 2)
-// 		{
-// 			fill_heatmap(env, y, x, HEATMAX - 1);
-// 		}
-// 	}
-// }
+static void	fill_bottom_right(t_env *env)
+{
+	int	x;
+	int y;
 
-// static void	fill_top_right(t_env *env)
-// {
-// 	int	x;
-// 	int y;
-//
-// 	y = -1;
-// 	while (++y < env->m_rows / 2)
-// 	{
-// 		x = env->m_cols / 2;
-// 		while (++x < env->m_cols)
-// 		{
-// 			fill_heatmap(env, y, x, HEATMAX - 1);
-// 		}
-// 	}
-// }
+	y = env->m_rows / 2;
+	while (++y < env->m_rows)
+	{
+		x = env->m_cols / 2;
+		while (++x < env->m_cols)
+		{
+			fill_heatmap(env, y, x, HEATMAX - 1);
+		}
+	}
+}
+
+static void	fill_bottom_left(t_env *env)
+{
+	int	x;
+	int y;
+
+	y = env->m_rows / 2;
+	while (++y < env->m_rows)
+	{
+		x = -1;
+		while (++x < env->m_cols / 2)
+		{
+			fill_heatmap(env, y, x, HEATMAX - 1);
+		}
+	}
+}
+
+static void	fill_top_right(t_env *env)
+{
+	int	x;
+	int y;
+
+	y = -1;
+	while (++y < env->m_rows / 2)
+	{
+		x = env->m_cols / 2;
+		while (++x < env->m_cols)
+		{
+			fill_heatmap(env, y, x, HEATMAX - 1);
+		}
+	}
+}
 
 static void	fill_top_left(t_env *env)
 {
@@ -76,55 +76,29 @@ static void	fill_top_left(t_env *env)
 	}
 }
 
-void	get_player_pos(t_env *env)
-{
-	static int	flag;
-	int			x;
-	int			y;
-
-	if (flag)
-		return ;
-	y = -1;
-	while (++y < env->m_rows)
-	{
-		x = -1;
-		while (++x < env->m_cols)
-		{
-			if (TOUPPER(env->map[y][x]) == env->player)
-			{
-				env->player_pos_x = x;
-				env->player_pos_y = y;
-				flag = 1;
-				return ;
-			}
-		}
-	}
-}
-
-void	small_filler(t_env *env)
+void		small_filler(t_env *env)
 {
 	static int flag;
 
 	if (flag)
 		return ;
 	get_player_pos(env);
-	// if (env->player_pos_y < env->m_rows / 2)
-	// {
-		// if (env->player_pos_x < env->m_cols / 2)
-			// fill_bottom_right(env);
-		// else
-			// fill_bottom_left(env);
-	// }
-	// else
-	// {
-		// if (env->player_pos_x < env->m_cols / 2)
-			// fill_top_right(env);
-		// else
-	if (env->player_pos_y > env->m_rows / 2 && env->player_pos_x > env->m_cols / 2)
+	if (env->player_pos_y < env->m_rows / 2)
 	{
-		env->special = 1;
-		fill_top_left(env);
+		if (env->player_pos_x < env->m_cols / 2)
+			fill_bottom_right(env);
+		else
+			fill_bottom_left(env);
 	}
-	// }
+	else
+	{
+		if (env->player_pos_x < env->m_cols / 2)
+			fill_top_right(env);
+		else
+		{
+			env->special = 1;
+			fill_top_left(env);
+		}
+	}
 	flag = 1;
 }
