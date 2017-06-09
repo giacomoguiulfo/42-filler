@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 15:22:53 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/06 15:32:06 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/08 19:16:52 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,79 @@ char	*read_line(void)
 	}
 }
 
-void	get_player_pos(t_env *env)
+void	make_map(t_env *env)
 {
-	static int	flag;
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = read_line();
+	while (!ISDIGIT(line[i]))
+		i++;
+	env->m_rows = ft_atoi(line + i);
+	while (ISDIGIT(line[i]))
+		i++;
+	env->m_cols = ft_atoi(line + i);
+	ft_strdel(&line);
+	env->map = (char **)ft_memalloc(sizeof(char *) * (env->m_rows + 1));
+	i = -1;
+	while (++i < env->m_rows)
+		env->map[i] = (char *)ft_memalloc(sizeof(char) * (env->m_cols + 1));
+}
+
+void	read_map(t_env *env)
+{
+	char	*line;
+	int		i;
+
+	i = -1;
+	while (++i < env->m_rows)
+	{
+		line = read_line();
+		ft_memcpy(env->map[i], &line[4], env->m_cols);
+		ft_strdel(&line);
+	}
+}
+
+void	read_piece(t_env *env)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = read_line();
+	while (!ISDIGIT(line[i]))
+		i++;
+	env->p_rows = ft_atoi(line + i);
+	while (ISDIGIT(line[i]))
+		i++;
+	env->p_cols = ft_atoi(line + i);
+	ft_strdel(&line);
+	env->piece = (char **)ft_memalloc(sizeof(char *) * (env->p_rows + 1));
+	i = -1;
+	while (++i < env->p_rows)
+	{
+		line = read_line();
+		env->piece[i] = ft_strdup(line);
+		ft_strdel(&line);
+	}
+}
+
+void	get_rival_pos(t_env *env)
+{
 	int			x;
 	int			y;
 
-	if (flag)
-		return ;
 	y = -1;
 	while (++y < env->m_rows)
 	{
 		x = -1;
 		while (++x < env->m_cols)
 		{
-			if (TOUPPER(env->map[y][x]) == env->player)
+			if (TOUPPER(env->map[y][x]) == env->rival)
 			{
-				env->player_pos_x = x;
-				env->player_pos_y = y;
-				flag = 1;
+				env->rival_pos_x = x;
+				env->rival_pos_y = y;
 				return ;
 			}
 		}

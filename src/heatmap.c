@@ -6,43 +6,41 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 23:37:15 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/06 15:30:17 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/08 20:06:00 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
-void		fill_heatmap(t_env *env, int y, int x, int heatmax)
+static void	heatmap_recursor(t_env *env, short level)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	int x;
+	int y;
+	int tmp;
 
-	i = -1;
-	while (++i < env->m_rows)
+	if (level <= 1)
+		return ;
+	y = -1;
+	while (++y < env->m_rows)
 	{
-		j = -1;
-		while (++j < env->m_cols)
+		x = -1;
+		while (++x < env->m_cols)
 		{
-			if (!env->special && (j == env->m_cols / 2))
-				env->heatmap[i][j] = HEATMAX;
-			tmp = heatmax - (ABS(x - j) + ABS(y - i));
-			env->heatmap[i][j] = MAX(env->heatmap[i][j], tmp);
+			if (env->heatmap[y][x] > 0)
+			{
+				tmp = env->heatmap[y][x];
+				if (x - 1 >= 0 && env->heatmap[y][x - 1] < tmp)
+					env->heatmap[y][x - 1] = tmp / DIVISH;
+				if (x + 1 < env->m_cols && env->heatmap[y][x + 1] < tmp)
+					env->heatmap[y][x + 1] = tmp / DIVISH;
+				if (y - 1 >= 0 && env->heatmap[y - 1][x] < tmp)
+					env->heatmap[y - 1][x] = tmp / DIVISH;
+				if (y + 1 < env->m_rows && env->heatmap[y + 1][x] < tmp)
+					env->heatmap[y + 1][x] = tmp / DIVISH;
+			}
 		}
 	}
-}
-
-static void	special_heatmap(t_env *env, int i, int j)
-{
-	if (j > env->m_cols / 2 && j == i + env->m_cols / 2)
-		fill_heatmap(env, i, j, HEATMAX + 2);
-	else if (i == env->m_rows / 2 ||
-			(j == env->m_cols / 2 && i < env->m_rows / 2))
-		fill_heatmap(env, i, j, HEATMAX);
-	else if (i < env->m_rows / 5)
-		fill_heatmap(env, i, j, HEATMAX - 1);
-	else if (j > env->m_cols - 3 && i < env->m_cols / 2)
-		fill_heatmap(env, i, j, HEATMAX);
+	heatmap_recursor(env, level / DIVISH);
 }
 
 void		update_heatmap(t_env *env)
@@ -56,12 +54,11 @@ void		update_heatmap(t_env *env)
 		j = -1;
 		while (++j < env->m_cols)
 		{
-			if (env->special)
-				special_heatmap(env, i, j);
-			else if (TOUPPER(env->map[i][j]) == env->rival)
-				fill_heatmap(env, i, j, HEATMAX);
+			if (TOUPPER(env->map[i][j]) == env->rival)
+				env->heatmap[i][j] = HEATMAX;
 		}
 	}
+	heatmap_recursor(env, HEATMAX);
 }
 
 void		make_heatmap(t_env *env)

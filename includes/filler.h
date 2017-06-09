@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/07 10:03:36 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/08 20:04:39 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,26 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-# define HEATMAX 100
+# define HEATMAX 11
+# define DIVISH 1.3
 # define FILLER_BUFF 4096
 
 typedef struct	s_env
 {
+	float		dist;
+	float		bestdist;
 	int			**heatmap;
+	int			out_x;
+	int			out_y;
 	int			m_rows;
 	int			m_cols;
 	int			p_rows;
 	int			p_cols;
-	int			out_x;
-	int			out_y;
 	int			heatscore;
-	int			player_pos_x;
-	int			player_pos_y;
-	int			special:1;
+	int			piece_pos_x;
+	int			piece_pos_y;
+	int			rival_pos_x;
+	int			rival_pos_y;
 	char		player;
 	char		rival;
 	char		**map;
@@ -40,11 +44,10 @@ typedef struct	s_env
 }				t_env;
 
 /*
-** Algorithms
+** Algorithm
 */
 
 void			filler(t_env *env);
-void			small_filler(t_env *env);
 
 /*
 ** Heatmap
@@ -52,21 +55,16 @@ void			small_filler(t_env *env);
 
 void			make_heatmap(t_env *env);
 void			update_heatmap(t_env *env);
-void			fill_heatmap(t_env *env, int y, int x, int heatmax);
-
-/*
-** Map Functions
-*/
-
-void			make_map(t_env *env);
-void			read_map(t_env *env);
 
 /*
 ** Utils
 */
 
 char			*read_line(void);
-void			get_player_pos(t_env *env);
+void			make_map(t_env *env);
+void			read_map(t_env *env);
+void			read_piece(t_env *env);
+void			get_rival_pos(t_env *env);
 
 /*
 ** Debug Functions
