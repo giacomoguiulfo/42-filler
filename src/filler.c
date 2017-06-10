@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/08 20:06:31 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:26:26 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	consider_position(t_env *env, int x, int y)
 		get_rival_pos(env);
 		get_piece_pos(env, x, y);
 		env->dist = ft_sqrtf(SQUARE(env->piece_pos_x - env->rival_pos_x)
-		 			+ SQUARE(env->piece_pos_y - env->rival_pos_y));
+					+ SQUARE(env->piece_pos_y - env->rival_pos_y));
 		if (env->dist < env->bestdist)
 		{
 			env->bestdist = env->dist;

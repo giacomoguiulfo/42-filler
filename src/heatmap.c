@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 23:37:15 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/08 20:06:00 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:26:05 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	heatmap_recursor(t_env *env, short level)
 	{
 		x = -1;
 		while (++x < env->m_cols)
-		{
 			if (env->heatmap[y][x] > 0)
 			{
 				tmp = env->heatmap[y][x];
@@ -38,7 +37,6 @@ static void	heatmap_recursor(t_env *env, short level)
 				if (y + 1 < env->m_rows && env->heatmap[y + 1][x] < tmp)
 					env->heatmap[y + 1][x] = tmp / DIVISH;
 			}
-		}
 	}
 	heatmap_recursor(env, level / DIVISH);
 }
