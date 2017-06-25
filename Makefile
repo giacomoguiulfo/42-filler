@@ -6,7 +6,7 @@
 #    By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/16 07:02:04 by gguiulfo          #+#    #+#              #
-#    Updated: 2017/06/08 19:22:16 by gguiulfo         ###   ########.fr        #
+#    Updated: 2017/06/25 00:46:01 by gguiulfo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ CC 		:= gcc
 CFLAGS	+= -Wall -Wextra -Werror
 CFLAGS	+= -I includes -I libft/includes
 LDFLAGS += -L libft/ -lft
+ifdef ALLOCWRAP
+	LDFLAGS += $(HOME)/42/Useful/42-useful/alloc_wrap.c
+endif
 
 LIBFT	:= libft/libft.a
 

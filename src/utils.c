@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 15:22:53 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/08 19:16:52 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/25 00:26:33 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,35 @@ char	*read_line(void)
 	}
 }
 
-void	make_map(t_env *env)
+int		make_map(t_env *env)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	line = read_line();
-	while (!ISDIGIT(line[i]))
+	get_next_line(STDIN_FILENO, &line);
+	if (!line || !line[0])
+		return (1);
+	while (line[i] && !ISDIGIT(line[i]))
 		i++;
 	env->m_rows = ft_atoi(line + i);
 	while (ISDIGIT(line[i]))
 		i++;
 	env->m_cols = ft_atoi(line + i);
 	ft_strdel(&line);
+	if (!(env->m_rows) || !(env->m_cols))
+	{
+		ft_dprintf(2, "Error: invalid map\n");
+		return (1);
+	}
 	env->map = (char **)ft_memalloc(sizeof(char *) * (env->m_rows + 1));
 	i = -1;
 	while (++i < env->m_rows)
 		env->map[i] = (char *)ft_memalloc(sizeof(char) * (env->m_cols + 1));
+	return (0);
 }
 
-void	read_map(t_env *env)
+int		read_map(t_env *env)
 {
 	char	*line;
 	int		i;
@@ -69,20 +77,25 @@ void	read_map(t_env *env)
 	i = -1;
 	while (++i < env->m_rows)
 	{
-		line = read_line();
+		get_next_line(STDIN_FILENO, &line);
+		if (!line || !line[0])
+			return (1);
 		ft_memcpy(env->map[i], &line[4], env->m_cols);
 		ft_strdel(&line);
 	}
+	return (0);
 }
 
-void	read_piece(t_env *env)
+int		read_piece(t_env *env)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	line = read_line();
-	while (!ISDIGIT(line[i]))
+	get_next_line(STDIN_FILENO, &line);
+	if (!line || !line[0])
+		return (1);
+	while (line[i] && !ISDIGIT(line[i]))
 		i++;
 	env->p_rows = ft_atoi(line + i);
 	while (ISDIGIT(line[i]))
@@ -93,10 +106,13 @@ void	read_piece(t_env *env)
 	i = -1;
 	while (++i < env->p_rows)
 	{
-		line = read_line();
+		get_next_line(STDIN_FILENO, &line);
+		if (!line || !line[0])
+			return (1);
 		env->piece[i] = ft_strdup(line);
 		ft_strdel(&line);
 	}
+	return (0);
 }
 
 void	get_rival_pos(t_env *env)

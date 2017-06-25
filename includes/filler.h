@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 15:35:19 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/08 20:04:39 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/10 02:01:46 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void			update_heatmap(t_env *env);
 */
 
 char			*read_line(void);
-void			make_map(t_env *env);
-void			read_map(t_env *env);
-void			read_piece(t_env *env);
+int				make_map(t_env *env);
+int				read_map(t_env *env);
+int				read_piece(t_env *env);
 void			get_rival_pos(t_env *env);
 
 /*

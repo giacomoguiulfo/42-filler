@@ -6,7 +6,7 @@
 /*   By: gguiulfo <gguiulfo@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 02:19:00 by gguiulfo          #+#    #+#             */
-/*   Updated: 2017/06/09 17:26:26 by gguiulfo         ###   ########.fr       */
+/*   Updated: 2017/06/25 00:34:05 by gguiulfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ void		filler(t_env *env)
 	int i;
 	int j;
 
-	i = -env->p_rows - 1;
+	i = -env->p_rows;
 	while (++i < env->m_rows)
 	{
-		j = -env->p_cols - 1;
+		j = -env->p_cols;
 		while (++j < env->m_cols)
 		{
 			if (is_safe(env, j, i))
